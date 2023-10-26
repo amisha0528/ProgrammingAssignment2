@@ -41,6 +41,26 @@ makeCacheMatrix <- function(x = matrix()) {
 
 ## Write a short comment describing this function
 
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+# Define a function to compute the inverse of the special "matrix" object
+cacheSolve <- function(x,...) {
+  # Get the cached inverse using the getCachedInverse function
+  cached_inverse <- x$getCachedInverse()
+  if (!is.null(cached_inverse)) {
+    return(cached_inverse)  # Return the cached inverse if it exists
+  } else {
+    message("Inverse is not cached. Use cacheInverse() to compute and cache it.")
+    return(NULL)  # Display a message and return NULL if the inverse is not cached
+  }
 }
+
+mat <- matrix(c(4, 2, 2, 3), nrow = 2, ncol = 2)
+
+cacheMatrix <- makeCacheMatrix(mat)
+
+cacheMatrix$cacheInverse()
+
+cached_inverse <- cacheSolve(cacheMatrix)
+print(cached_inverse)
+
+cached_inverse <- cacheSolve(cacheMatrix)
+print(cached_inverse)
